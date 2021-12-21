@@ -9,6 +9,11 @@
     tools:context=".MainActivity"
     app:layoutDescription="@xml/scene">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appBarLayout"
         android:layout_width="match_parent"
@@ -23,6 +28,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_ImageVideo"
+                android:isScrollContainer="true"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/logo_youtube" />
@@ -31,15 +37,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_coordinator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

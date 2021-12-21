@@ -136,7 +136,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="18dp"
-            android:translationY="-42dp"
+            android:translationY="-45dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -148,8 +148,7 @@
             app:layout_constraintEnd_toEndOf="@+id/video_player"
             app:layout_constraintStart_toStartOf="@+id/video_player"
             app:layout_constraintBottom_toBottomOf="@+id/video_player"
-            android:layout_marginStart="130dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginStart="130dp" />
 
 
         <Constraint
@@ -181,16 +180,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="17:3"
             android:scaleX=".4"
-            android:translationX="-120dp"/>
+            android:translationX="-111dp"/>
 
         <Constraint
             android:id="@+id/surface_player"
             app:layout_constraintBottom_toBottomOf="@+id/video_player"
-            app:layout_constraintEnd_toEndOf="@+id/video_player"
-            app:layout_constraintStart_toStartOf="@id/video_player"
+            app:layout_constraintEnd_toEndOf="@+id/container_scroll"
+            app:layout_constraintStart_toStartOf="@id/container_scroll"
             app:layout_constraintTop_toTopOf="@+id/video_player"
             android:scaleX=".4"
-            android:translationX="-120dp"/>
+            android:translationX="-111dp"/>
 
         <Constraint
             android:id="@+id/video_player_title"
@@ -198,8 +197,7 @@
             app:layout_constraintEnd_toEndOf="@+id/video_player"
             app:layout_constraintStart_toStartOf="@+id/video_player"
             app:layout_constraintBottom_toBottomOf="@id/video_player"
-            android:layout_marginStart="130dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginStart="130dp"/>
 
     </ConstraintSet>
 
