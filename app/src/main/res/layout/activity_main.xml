@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="enterAlways|scroll">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_ImageVideo"
