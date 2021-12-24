@@ -4,15 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.SeekBar
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.video_detail.*
+import kotlinx.android.synthetic.main.video_detail.view.*
 import kotlinx.android.synthetic.main.video_detail_content.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.lang.Exception
@@ -20,6 +21,7 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
 
     lateinit var videoAdapter: VideoAdapter
+    lateinit var youtubePlayer: YoutubePlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +53,53 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    youtubePlayer.seek(progress.toLong())
+                }
+
+            }
+
+            override fun onStartTrackingTouch(seekbar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekbar: SeekBar?) {
+
+            }
+        })
+
+        preparePlayer()
     }
+
+    private fun preparePlayer() {
+        youtubePlayer = YoutubePlayer(this)
+        youtubePlayer.youtubePlayerListener = object : YoutubePlayer.YoutubePlayerListener {
+            override fun OnPrepared(duration: Int) {
+
+            }
+
+            override fun onTrackTime(currentPosition: Long, percent: Long) {
+                motion_container.seek_bar.progress = percent.toInt()
+                motion_container.current_time.text = currentPosition.formatTime()
+            }
+        }
+        surface_player.holder.addCallback(youtubePlayer)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        youtubePlayer.release()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        youtubePlayer.pause()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -99,11 +147,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        video_player.visibility = View.GONE
+        youtubePlayer.setUrl(video.videoUrl)
+
         val detailAdapter = VideoDetailAdapter(videos())
         rv_similiar.layoutManager = LinearLayoutManager(this)
         rv_similiar.adapter = detailAdapter
 
-        content_channel.text =video.publisher.name
+        content_channel.text = video.publisher.name
         content_title.text = video.title
         Picasso.get().load(video.publisher.pictureProfileUrl).into(img_channel)
         detailAdapter.notifyDataSetChanged()
